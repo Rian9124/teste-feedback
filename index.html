@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste feedback-1</title>
+</head>
+<body>
+    <form id="feedbackForm">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required>
+      
+        <label for="comment">Comentário:</label>
+        <textarea id="comment" name="comment" required></textarea>
+      
+        <button type="submit">Enviar Feedback</button>
+      </form>
+      <script>
+        document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
+          e.preventDefault();
+        
+          const name = document.getElementById('name').value;
+          const comment = document.getElementById('comment').value;
+        
+          const response = await fetch('/api/saveFeedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, comment })
+          });
+        
+          const result = await response.json();
+          alert(result.message);
+        });
+        </script>
+</body>
+</html>
